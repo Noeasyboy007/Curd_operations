@@ -10,9 +10,9 @@ const Users = () => {
         Address: "yourSelf Address"
     }])
     return (
-        <div className="d-flex vh-100 bg-primary justify-content-center align-item-center ">
+        <div className="d-flex vh-100 bg-primary justify-content-center align-items-center ">
             <div className="w-50 bg-white rounded p-3">
-                <Link to='/create' className='btn btn-success'>+Add</Link>
+                <Link to='/create' className='btn btn-success fw-bold '>+Add</Link>
                 <table className="table">
                     <thead>
                         {/* for table row */}
@@ -36,8 +36,8 @@ const Users = () => {
                                         <td>{user.Age}</td>
                                         <td>{user.Address}</td>
                                         <td>
-                                            <button onClick={() => deleteUser(user.Name)}>Delete</button>
-                                            <button onClick={() => eaditUser(user.Name)}>Eadit</button>
+                                            <button className='btn btn-danger ' onClick={() => deleteUser(user.Name)}>Delete</button>
+                                            <button className='btn btn-warning' onClick={() => eaditUser(user.Name)}>Eadit</button>
                                         </td>
                                     </tr>
                                 )
