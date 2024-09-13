@@ -32,7 +32,7 @@ const UpdateUsers = () => {
                         ></textarea>
                     </div>
 
-                    <button className='btn btn-warning fw-bold'> Update</button>
+                    <button className='btn btn-warning fw-bold'>Update</button>
 
                 </form>
             </div>
