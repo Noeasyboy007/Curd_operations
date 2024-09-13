@@ -36,8 +36,8 @@ const Users = () => {
                                         <td>{user.Age}</td>
                                         <td>{user.Address}</td>
                                         <td>
-                                            <button className='btn btn-danger ' onClick={() => deleteUser(user.Name)}>Delete</button>
-                                            <button className='btn btn-warning' onClick={() => eaditUser(user.Name)}>Eadit</button>
+                                            <Link to='/update' className='btn btn-success fw-bold'>Eadit</Link>
+                                            <button className='btn btn-danger fw-bold' onClick={() => deleteUser(user.Name)}>Delete</button>
                                         </td>
                                     </tr>
                                 )

@@ -24,7 +24,7 @@ const CreateUser = () => {
           <div className='mb-2'>
             <label htmlFor=''>Address</label>
             <textarea
-            placeholder='Enter your address'
+              placeholder='Enter your address'
               className='form-control'
               id='exampleFormControlTextarea1'
               rows='3'
