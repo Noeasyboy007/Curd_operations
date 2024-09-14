@@ -1,14 +1,29 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 
 const Users = () => {
 
-    const [users, setUsers] = useState([{
-        Name: "yourSelf",
-        Email: "email@yourSelf.com",
-        Age: 20,
-        Address: "yourSelf Address"
-    }])
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/users/read');
+                if (Array.isArray(response.data)) {
+                    setUsers(response.data);
+                } else {
+                    console.error("API response is not an array:", response.data);
+                    setUsers([]); // Set users as an empty array if response is not an array
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        fetchUsers();
+    }, [])
+
     return (
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center ">
             <div className="w-50 bg-white rounded p-3">
@@ -31,10 +46,10 @@ const Users = () => {
                             users.map((user) => {
                                 return (
                                     <tr key={user}>
-                                        <td>{user.Name}</td>
-                                        <td>{user.Email}</td>
-                                        <td>{user.Age}</td>
-                                        <td>{user.Address}</td>
+                                        <td>{user.name}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.age}</td>
+                                        <td>{user.address}</td>
                                         <td>
                                             <Link to='/update' className='btn btn-success fw-bold'>Eadit</Link>
                                             <button className='btn btn-danger fw-bold' onClick={() => deleteUser(user.Name)}>Delete</button>
