@@ -43,7 +43,7 @@ const create = async (req, res) => {
 const read = async (req, res) => {
 
     try {
-        const users = await userModel.find();
+        const users = await userModel.find({});
         if (users.length === 0) {
             return res.status(404).json({ error: "No users found" });
         }

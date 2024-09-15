@@ -10,12 +10,9 @@ const Users = () => {
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/users/read');
-                if (Array.isArray(response.data)) {
-                    setUsers(response.data);
-                } else {
-                    console.error("API response is not an array:", response.data);
-                    setUsers([]); // Set users as an empty array if response is not an array
-                }
+                console.log(response.data)
+                setUsers(response.data.users);
+
             }
             catch (error) {
                 console.error(error);
@@ -24,9 +21,19 @@ const Users = () => {
         fetchUsers();
     }, [])
 
+    const deleteUser = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/users/delete/${id}`);
+            // Remove the deleted user from the local state
+            setUsers(users.filter(user => user._id !== id));
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
+
     return (
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center ">
-            <div className="w-50 bg-white rounded p-3">
+            <div className="w-80 bg-white rounded p-3">
                 <Link to='/create' className='btn btn-success fw-bold '>+Add</Link>
                 <table className="table">
                     <thead>
@@ -42,22 +49,24 @@ const Users = () => {
 
                     {/* for table colum */}
                     <tbody>
-                        {
-                            users.map((user) => {
-                                return (
-                                    <tr key={user}>
-                                        <td>{user.name}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.age}</td>
-                                        <td>{user.address}</td>
-                                        <td>
-                                            <Link to='/update' className='btn btn-success fw-bold'>Eadit</Link>
-                                            <button className='btn btn-danger fw-bold' onClick={() => deleteUser(user.Name)}>Delete</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
+                        {users.length > 0 ? (
+                            users.map((user, index) => (
+                                <tr key={index}>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.age}</td>
+                                    <td>{user.address}</td>
+                                    <td>
+                                        <Link to='/update' className='btn btn-success fw-bold'>Edit</Link>
+                                        <button className='btn btn-danger fw-bold' onClick={() => deleteUser(user._id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="5" className="text-center">No users found</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -16,7 +16,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(bodyparser.json());
+app.use(express.json());
 
 app.use('/api/users', router)
 
