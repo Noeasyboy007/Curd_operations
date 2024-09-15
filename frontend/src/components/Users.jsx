@@ -10,7 +10,7 @@ const Users = () => {
         const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/api/users/read');
-                console.log(response.data)
+                // console.log(response.data)
                 setUsers(response.data.users);
 
             }
@@ -21,6 +21,7 @@ const Users = () => {
         fetchUsers();
     }, [])
 
+    
     const deleteUser = async (id) => {
         try {
             await axios.delete(`http://localhost:8000/api/users/delete/${id}`);
@@ -57,7 +58,7 @@ const Users = () => {
                                     <td>{user.age}</td>
                                     <td>{user.address}</td>
                                     <td>
-                                        <Link to='/update' className='btn btn-success fw-bold'>Edit</Link>
+                                        <Link to={`/update/${user._id}`} className='btn btn-success fw-bold'>Edit</Link>
                                         <button className='btn btn-danger fw-bold' onClick={() => deleteUser(user._id)}>Delete</button>
                                     </td>
                                 </tr>
