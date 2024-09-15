@@ -55,6 +55,23 @@ const read = async (req, res) => {
     }
 }
 
+
+// For read a single user by ID
+const readById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await userModel.findById(id);
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json(user);
+        console.log("User fetched successfully");
+    } catch (error) {
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 // for update users
 const update = async (req, res) => {
     try {
@@ -93,4 +110,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { test, create, read, update, deleteUser };
+module.exports = { test, create, read, readById, update, deleteUser };
