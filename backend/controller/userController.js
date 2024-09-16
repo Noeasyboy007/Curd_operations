@@ -16,10 +16,10 @@ const create = async (req, res) => {
         const { email, name, age, address } = req.body;
 
         // Check if user already exists with this email
-        const userExists = await userModel.findOne({ email });
-        if (userExists) {
-            return res.status(400).json({ error: "User already exists with this email" });
-        }
+        // const userExists = await userModel.findOne({ email });
+        // if (userExists) {
+        //     return res.status(400).json({ error: "User already exists with this email" });
+        // }
 
         const newUser = new userModel({ email, name, age, address });
         await newUser.save();
@@ -29,8 +29,8 @@ const create = async (req, res) => {
             _id: newUser._id,
             name: newUser.name,
             email: newUser.email,
-            gender: newUser.age,
-            avatar: newUser.address,
+            age: newUser.age,
+            address: newUser.address,
         });
     } catch (error) {
         console.error(error);
